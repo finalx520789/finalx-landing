@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinalX Nodes - La Inversión Inteligente en un Ecosistema Descentralizado</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827;
+            color: #F3F4F6;
+            overflow-x: hidden;
+        }
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #FBBF24, #F59E0B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up {
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            border-color: #FBBF24;
+        }
+        .dapp-mockup {
+            background-color: #1F2937;
+            border: 1px solid #374151;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        /* Estilos para la IA de FAQ */
+        #ai-answer-container {
+            background: rgba(17, 24, 39, 0.5);
+            border: 1px solid #374151;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            min-height: 100px;
+            transition: opacity 0.5s ease;
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-left-color: #FBBF24;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-900">
+
+    <div class="container mx-auto px-4 py-12 md:py-20">
+
+        <!-- HERO SECTION -->
+        <section class="relative text-center max-w-4xl mx-auto mb-32 h-[80vh] flex flex-col justify-center items-center">
+            <div id="particles-js"></div>
+            <div class="hero-content">
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight fade-in-up" style="animation-delay: 0.2s;">
+                    La Verdadera Propiedad Digital. <br> <span class="gradient-text">Rendimientos Reales.</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-400 mb-8 fade-in-up" style="animation-delay: 0.4s;">
+                    Conviértete en socio de un ecosistema digital en expansión. Los Nodos FinalX te dan una participación directa en los beneficios de nuestros productos.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in-up" style="animation-delay: 0.6s;">
+                    <a href="https://nodes.finalx.app/" target="_blank" class="bg-amber-500 text-gray-900 font-bold py-3 px-8 rounded-lg text-lg hover:bg-amber-400 transition-transform transform hover:scale-105 inline-block">
+                        Adquirir un Nodo
+                    </a>
+                    <a href="#ecosystem" class="bg-gray-800/50 border border-gray-700 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-gray-700 transition-colors inline-block">
+                        Descubrir Ecosistema
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCARCITY SECTION -->
+        <section class="mb-24" id="scarcity-section">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">💎 Exclusividad y Escasez: La Clave del Valor</h2>
+                <p class="text-gray-400 mt-2 max-w-2xl mx-auto">Una oportunidad finita para ser dueño de una parte del futuro. El suministro de nodos es y siempre será limitado.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700">
+                    <p class="text-5xl font-extrabold gradient-text" data-count="2000">0</p>
+                    <p class="text-xl font-semibold mt-2">Nodos Totales</p>
+                    <p class="text-gray-400 mt-1">Un suministro total inalterable.</p>
+                </div>
+                <div class="bg-amber-500/10 p-8 rounded-2xl border-2 border-amber-500 shadow-lg shadow-amber-500/10">
+                    <p class="text-5xl font-extrabold gradient-text" data-count="1000">0</p>
+                    <p class="text-xl font-semibold mt-2">Disponibles Ahora</p>
+                    <p class="text-gray-400 mt-1">La primera oportunidad para inversores visionarios.</p>
+                </div>
+                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700">
+                    <p class="text-5xl font-extrabold gradient-text" data-count="2026">0</p>
+                    <p class="text-xl font-semibold mt-2">Siguiente Fase</p>
+                    <p class="text-gray-400 mt-1">Los 1,000 nodos restantes se liberarán en el Q2 de 2026.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- REVENUE & PRODUCTS SECTION -->
+        <section class="mb-24" id="ecosystem">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">⚙️ Un Ecosistema Potenciado por Streamers</h2>
+                <p class="text-gray-400 mt-2 max-w-3xl mx-auto">Nuestra estrategia es única: los productos digitales son comercializados por una red global de streamers. Les proveemos herramientas de difusión de vanguardia para que su éxito sea el tuyo, generando ingresos constantes para los tenedores de nodos.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                 <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 flex flex-col text-center items-center card-hover">
+                    <i class="fas fa-robot text-5xl gradient-text mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2">Herramientas de IA y Trading</h3>
+                    <p class="text-gray-400 flex-grow">Bots de trading, chat boosts con IA y otras herramientas que generan ingresos por comisiones de uso.</p>
+                </div>
+                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 flex flex-col text-center items-center card-hover">
+                    <i class="fas fa-gamepad text-5xl gradient-text mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2">Arenas de Juego P2E</h3>
+                    <p class="text-gray-400 flex-grow">Plataforma Play-to-Earn donde los ingresos provienen de torneos y venta de activos in-game.</p>
+                </div>
+                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 flex flex-col text-center items-center card-hover">
+                    <i class="fas fa-palette text-5xl gradient-text mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2">Comercialización de NFTs</h3>
+                    <p class="text-gray-400 flex-grow">Marketplace para activos digitales exclusivos. Un porcentaje de cada transacción se reparte entre los nodos.</p>
+                </div>
+                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 flex flex-col text-center items-center card-hover">
+                    <i class="fas fa-trophy text-5xl gradient-text mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2">Sorteos y Competiciones</h3>
+                    <p class="text-gray-400 flex-grow">Eventos online que generan ingresos a través de la venta de tickets y patrocinios, distribuidos a los nodos.</p>
+                </div>
+                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 flex flex-col text-center items-center card-hover">
+                    <i class="fas fa-bullhorn text-5xl gradient-text mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2">Potenciamos a Streamers</h3>
+                    <p class="text-gray-400 flex-grow">Equipamos a streamers en las plataformas líderes con herramientas y narrativas únicas para comercializar nuestros productos. Su éxito se traduce en ganancias directas para el ecosistema.</p>
+                </div>
+                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 flex flex-col text-center items-center card-hover">
+                    <i class="fas fa-book-open text-5xl gradient-text mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2">Infoproductos y Educación</h3>
+                    <p class="text-gray-400 flex-grow">Venta de cursos, guías y contenido educativo. Los beneficios se integran al pool de recompensas de los nodos.</p>
+                </div>
+            </div>
+             <p class="text-center text-gray-400 text-lg">Y además, comisiones de <span class="font-bold text-gray-300">ingreso</span>, <span class="font-bold text-gray-300">retiro</span> y <span class="font-bold text-gray-300">mucho más</span>... </p>
+            <!-- Calculadora Interactiva -->
+            <div class="bg-gray-900/70 backdrop-blur-sm p-8 rounded-2xl border border-amber-500 mt-12 max-w-4xl mx-auto">
+                <h4 class="text-2xl font-bold text-center mb-6">Calcula tus Ganancias Potenciales</h4>
+                <div class="space-y-6">
+                    <div>
+                        <label for="node-count" class="block text-gray-400 mb-2">Número de Nodos que posees:</label>
+                        <input type="range" id="node-count" min="1" max="50" value="1" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-amber-500">
+                        <p class="text-center text-xl font-bold mt-2"><span id="node-count-label" class="gradient-text">1</span> Nodo(s)</p>
+                    </div>
+                    <div>
+                        <label for="ecosystem-profit" class="block text-gray-400 mb-2">Proyección de Ganancias del Ecosistema (USD):</label>
+                        <input type="range" id="ecosystem-profit" min="50000" max="500000" step="10000" value="100000" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-amber-500">
+                        <p class="text-center text-xl font-bold mt-2">$<span id="ecosystem-profit-label" class="gradient-text">100,000</span></p>
+                    </div>
+                </div>
+                <div class="mt-8 pt-6 border-t border-gray-700 text-center">
+                    <p class="text-gray-400 text-lg">Tus ganancias estimadas:</p>
+                    <p id="estimated-earnings" class="text-5xl font-extrabold gradient-text my-2">$50.00 USD</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- VALORIZATION SECTION -->
+        <section class="mb-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">📈 Innovación en Valorización: Tu Inversión Crece Sola</h2>
+                <p class="text-gray-400 mt-2 max-w-2xl mx-auto">Hemos diseñado un sistema de doble valorización que protege y potencia tu capital de forma única en el mercado.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700">
+                    <h3 class="text-2xl font-bold mb-4">Fase 1: Valorización Automática</h3>
+                    <p class="text-gray-400 mb-6">El precio base de cada nodo aumenta con cada 50 ventas. Los primeros en invertir obtienen la mayor ventaja.</p>
+                    <div class="chart-container">
+                        <canvas id="valorizationChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700">
+                    <h3 class="text-2xl font-bold mb-4">Fase 2: Valorización Sostenida</h3>
+                    <p class="text-gray-400 mb-6">En el Marketplace P2P, ningún nodo puede venderse por debajo de su precio de compra + 10%. Esto crea un "piso" de valor que sube constantemente.</p>
+                    <div class="bg-gray-900 p-6 rounded-lg text-center">
+                        <p class="text-gray-400">Precio Mínimo de Venta</p>
+                        <p class="text-2xl font-bold mt-2"><span class="gradient-text">Precio de Compra + 10%</span></p>
+                        <p class="text-sm text-gray-500 mt-4">Esta regla protege a todos los tenedores de nodos y asegura un mercado saludable.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOW TO START SECTION -->
+        <section class="mb-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">🚀 Tu Inversión, Activa en Minutos</h2>
+                <p class="text-gray-400 mt-2">Comenzar es tan fácil como seguir estos tres pasos en nuestra DApp.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                <!-- Step 1 -->
+                <div class="flex flex-col">
+                    <div class="flex items-center mb-4">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-full step-number font-bold text-2xl mr-4">1</div>
+                        <h3 class="text-2xl font-bold">Conecta tu Wallet</h3>
+                    </div>
+                    <div class="dapp-mockup flex-grow">
+                        <p class="text-gray-400 mb-4">Asegúrate de estar en la red BSC y haz clic para conectar.</p>
+                        <p class="text-xs text-amber-400 mb-4">Importante: Necesitarás USDT (BEP20) para la compra y BNB para las comisiones (gas), ambos en la Red BSC.</p>
+                        <div class="bg-gray-800 p-4 rounded-lg flex items-center justify-between">
+                            <span class="text-gray-300 font-semibold">FinalX Nodes</span>
+                            <button class="bg-gray-700 text-white font-bold py-2 px-4 rounded-lg text-sm flex items-center gap-2"><i class="fas fa-wallet"></i> Conectar Wallet</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="flex flex-col">
+                    <div class="flex items-center mb-4">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-full step-number font-bold text-2xl mr-4">2</div>
+                        <h3 class="text-2xl font-bold">Compra tu Nodo</h3>
+                    </div>
+                    <div class="dapp-mockup flex-grow">
+                        <p class="text-gray-400 mb-6">Elige la cantidad de nodos que deseas y confirma la transacción.</p>
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                             <p class="text-sm text-gray-400">Cantidad</p>
+                             <input type="number" value="1" class="w-full bg-gray-700 text-white text-center rounded-md p-2 my-2">
+                             <button class="bg-amber-500 w-full text-gray-900 font-bold py-2 px-4 rounded-lg">🚀 Comprar Ahora</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="flex flex-col">
+                    <div class="flex items-center mb-4">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-full step-number font-bold text-2xl mr-4">3</div>
+                        <h3 class="text-2xl font-bold">Recibe Ganancias</h3>
+                    </div>
+                    <div class="dapp-mockup flex-grow">
+                        <p class="text-gray-400 mb-6">Tus nodos y ganancias aparecerán en tu dashboard. ¡Listo!</p>
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <p class="text-sm text-gray-400">Total Ganado (USD)</p>
+                            <p class="text-2xl font-bold text-white my-2">$50.00</p>
+                            <button class="bg-green-600 w-full text-white font-bold py-2 px-4 rounded-lg">💰 Retirar Ganancias</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="https://nodes.finalx.app/" target="_blank" class="bg-amber-500 text-gray-900 font-bold py-4 px-10 rounded-lg text-xl hover:bg-amber-400 transition-transform transform hover:scale-105">
+                    Ir a la DApp y Comenzar
+                </a>
+            </div>
+        </section>
+
+        <!-- ADVANTAGE SECTION -->
+        <section class="mb-24">
+             <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">La Ventaja <span class="gradient-text">FinalX</span></h2>
+                <p class="text-gray-400 mt-2 max-w-2xl mx-auto">Tres pilares que hacen de esta una inversión inteligente y segura.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 card-hover">
+                    <i class="fas fa-shield-alt text-4xl gradient-text mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2">Valorización Garantizada</h3>
+                    <p class="text-gray-400">Con un precio que solo puede subir y un piso de venta del +10%, tu activo está diseñado para apreciarse.</p>
+                </div>
+                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 card-hover">
+                     <i class="fas fa-coins text-4xl gradient-text mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2">Ingresos Pasivos Reales</h3>
+                    <p class="text-gray-400">Recibes ganancias directas de productos funcionales, no de la entrada de nuevos inversores.</p>
+                </div>
+                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 card-hover">
+                     <i class="fas fa-file-contract text-4xl gradient-text mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2">Propiedad Descentralizada</h3>
+                    <p class="text-gray-400">Tu nodo es un NFT en tu wallet. Tienes control total y puedes venderlo cuando quieras en el marketplace.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ROADMAP SECTION -->
+        <section class="mb-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">🗺️ Nuestra Hoja de Ruta</h2>
+                <p class="text-gray-400 mt-2">Construyendo el futuro, paso a paso.</p>
+            </div>
+            <div class="max-w-2xl mx-auto relative">
+                <!-- Línea de tiempo vertical -->
+                <div class="absolute left-4 md:left-12 -ml-0.5 w-1 h-full bg-gray-700"></div>
+                <!-- Hito 1 -->
+                <div class="relative mb-8 pl-12 md:pl-24">
+                    <div class="absolute left-4 md:left-12 -ml-4 w-8 h-8 rounded-full bg-amber-500 border-4 border-gray-900 flex items-center justify-center">
+                        <i class="fas fa-check text-gray-900"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-amber-400">Q3 2024</p>
+                        <h4 class="text-xl font-bold mt-1">Lanzamiento de Nodos</h4>
+                        <p class="text-gray-400">Apertura de la venta inicial de los primeros 1,000 nodos.</p>
+                    </div>
+                </div>
+                <!-- Hito 2 -->
+                <div class="relative mb-8 pl-12 md:pl-24">
+                     <div class="absolute left-4 md:left-12 -ml-4 w-8 h-8 rounded-full bg-amber-500 border-4 border-gray-900 flex items-center justify-center">
+                        <i class="fas fa-check text-gray-900"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-amber-400">Q4 2024</p>
+                        <h4 class="text-xl font-bold mt-1">Integración de Juegos</h4>
+                        <p class="text-gray-400">Lanzamiento de las primeras Arenas de juego en el ecosistema.</p>
+                    </div>
+                </div>
+                 <!-- Hito 3 -->
+                <div class="relative mb-8 pl-12 md:pl-24">
+                     <div class="absolute left-4 md:left-12 -ml-4 w-8 h-8 rounded-full bg-gray-700 border-4 border-gray-900"></div>
+                    <div>
+                        <p class="font-bold text-gray-500">Q1 2025</p>
+                        <h4 class="text-xl font-bold mt-1">Marketplace P2P</h4>
+                        <p class="text-gray-400">Activación del mercado secundario para la compra-venta de nodos.</p>
+                    </div>
+                </div>
+                 <!-- Hito 4 -->
+                <div class="relative pl-12 md:pl-24">
+                     <div class="absolute left-4 md:left-12 -ml-4 w-8 h-8 rounded-full bg-gray-700 border-4 border-gray-900"></div>
+                    <div>
+                        <p class="font-bold text-gray-500">Q2 2026</p>
+                        <h4 class="text-xl font-bold mt-1">Liberación Fase 2</h4>
+                        <p class="text-gray-400">Venta de los 1,000 nodos restantes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GEMINI FAQ SECTION -->
+        <section class="mb-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">❓ Pregúntale a nuestra IA</h2>
+                <p class="text-gray-400 mt-2 max-w-2xl mx-auto">¿Tienes dudas? Nuestra IA, entrenada con toda la información del proyecto, te responde al instante.</p>
+            </div>
+            <div class="max-w-3xl mx-auto bg-gray-800/50 border border-gray-700 rounded-lg p-8">
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <input type="text" id="ai-question-input" class="w-full bg-gray-700 text-white rounded-md p-3 border border-gray-600 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" placeholder="Ej: ¿Cómo se reparten las ganancias?">
+                    <button id="ask-ai-btn" class="bg-amber-500 text-gray-900 font-bold py-3 px-6 rounded-lg hover:bg-amber-400 transition-colors flex items-center justify-center gap-2">
+                        Preguntar a la IA ✨
+                    </button>
+                </div>
+                <div id="ai-answer-container" class="text-gray-300 mt-6">
+                    <p>La respuesta aparecerá aquí...</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- TRUST & CLARITY SECTION -->
+        <section class="text-center max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold">🛡️ Confianza y Claridad en Cada Paso</h2>
+            <p class="text-gray-400 mt-2 mb-8">Construimos sobre una base de transparencia y facilidad de uso.</p>
+            <div class="flex flex-col md:flex-row justify-center gap-8">
+                <div class="flex items-center text-left gap-4 bg-gray-800/50 p-6 rounded-lg border border-gray-700 flex-1">
+                    <i class="fas fa-search-dollar text-4xl text-amber-500"></i>
+                    <div>
+                        <h4 class="font-bold text-lg">Transparencia y Trazabilidad</h4>
+                        <p class="text-gray-400 text-sm">Cada transacción es pública y verificable en la blockchain, garantizando una total claridad sobre los fondos.</p>
+                    </div>
+                </div>
+                <div class="flex items-center text-left gap-4 bg-gray-800/50 p-6 rounded-lg border border-gray-700 flex-1">
+                    <i class="fas fa-desktop text-4xl text-amber-500"></i>
+                     <div>
+                        <h4 class="font-bold text-lg">DApp Amigable e Intuitiva</h4>
+                        <p class="text-gray-400 text-sm">Diseñada para una gestión fácil de tu inversión. Control total, sin complicaciones.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="border-t border-gray-800 mt-20">
+        <div class="container mx-auto px-4 py-8 text-center text-gray-500">
+            <p>&copy; 2025 FinalX Nodes. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // --- ANIMACIÓN DE PARTÍCULAS HERO ---
+        particlesJS('particles-js', {
+            "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#fbbf24" }, "shape": { "type": "circle" }, "opacity": { "value": 0.5, "random": false }, "size": { "value": 3, "random": true }, "line_linked": { "enable": true, "distance": 150, "color": "#fbbf24", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out" } },
+            "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } }, "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "push": { "particles_nb": 4 } } },
+            "retina_detect": true
+        });
+
+        // --- ANIMACIÓN DE ENTRADA (FADE IN UP) ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = `fadeInUp 0.8s ${entry.target.style.animationDelay || '0s'} forwards`;
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+
+        // --- CONTADORES ANIMADOS ---
+        const counterObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('[data-count]');
+                    counters.forEach(counter => {
+                        const target = +counter.getAttribute('data-count');
+                        let count = 0;
+                        const speed = 200; // Duración de la animación
+                        const increment = target / speed;
+                        const updateCount = () => {
+                            if (count < target) {
+                                count += increment;
+                                counter.innerText = Math.ceil(count).toLocaleString();
+                                requestAnimationFrame(updateCount);
+                            } else { counter.innerText = target.toLocaleString(); }
+                        };
+                        updateCount();
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        const scarcitySection = document.getElementById('scarcity-section');
+        if (scarcitySection) { counterObserver.observe(scarcitySection); }
+
+        // --- GRÁFICO DE VALORIZACIÓN MEJORADO ---
+        const ctx = document.getElementById('valorizationChart');
+        if (ctx) {
+            const labels = Array.from({ length: 21 }, (_, i) => `${i * 50}`);
+            const dataPoints = Array.from({ length: 21 }, (_, i) => 500 + (i * 50));
+            const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 350);
+            gradient.addColorStop(0, 'rgba(251, 191, 36, 0.4)');
+            gradient.addColorStop(1, 'rgba(251, 191, 36, 0)');
+            new Chart(ctx, {
+                type: 'line',
+                data: { labels: labels, datasets: [{ label: 'Precio del Nodo (USDT)', data: dataPoints, fill: true, backgroundColor: gradient, borderColor: '#FBBF24', tension: 0.4, pointBackgroundColor: '#FBBF24', pointBorderColor: '#111827', pointHoverBackgroundColor: '#FFFFFF', pointHoverBorderColor: '#FBBF24', pointRadius: 4, pointHoverRadius: 8 }] },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: false, ticks: { color: '#9CA3AF' }, grid: { color: 'rgba(255, 255, 255, 0.1)' } }, x: { title: { display: true, text: 'Nodos Vendidos', color: '#9CA3AF' }, ticks: { color: '#9CA3AF' }, grid: { display: false } } }, plugins: { legend: { display: false }, tooltip: { backgroundColor: '#1F2937', titleColor: '#FBBF24', bodyColor: '#F3F4F6', padding: 12, cornerRadius: 8, displayColors: false, borderColor: '#374151', borderWidth: 1, callbacks: { title: (context) => `${context[0].label} Nodos Vendidos`, label: (context) => `Precio: ${context.parsed.y} USDT` } } }, interaction: { intersect: false, mode: 'index' } }
+            });
+        }
+
+        // --- CALCULADORA INTERACTIVA DE ROI ---
+        const nodeSlider = document.getElementById('node-count');
+        const profitSlider = document.getElementById('ecosystem-profit');
+        const nodeLabel = document.getElementById('node-count-label');
+        const profitLabel = document.getElementById('ecosystem-profit-label');
+        const earningsLabel = document.getElementById('estimated-earnings');
+        function updateCalculator() {
+            if (!nodeSlider || !profitSlider) return;
+            const nodes = parseInt(nodeSlider.value);
+            const totalProfit = parseInt(profitSlider.value);
+            const totalNodes = 2000;
+            const earnings = (totalProfit / totalNodes) * nodes;
+            nodeLabel.innerText = nodes;
+            profitLabel.innerText = totalProfit.toLocaleString('en-US');
+            earningsLabel.innerText = `$${earnings.toFixed(2)} USD`;
+        }
+        if (nodeSlider) nodeSlider.addEventListener('input', updateCalculator);
+        if (profitSlider) profitSlider.addEventListener('input', updateCalculator);
+
+        // --- GEMINI API INTEGRATION ---
+        const askAiBtn = document.getElementById('ask-ai-btn');
+        const questionInput = document.getElementById('ai-question-input');
+        const answerContainer = document.getElementById('ai-answer-container');
+
+        const askGemini = async () => {
+            const userQuestion = questionInput.value;
+            if (!userQuestion.trim()) {
+                answerContainer.innerHTML = `<p class="text-amber-400">Por favor, escribe una pregunta.</p>`;
+                return;
+            }
+
+            answerContainer.innerHTML = `<div class="flex justify-center items-center"><div class="spinner"></div></div>`;
+            askAiBtn.disabled = true;
+            askAiBtn.classList.add('opacity-50');
+
+            try {
+                // The frontend now calls our own serverless function
+                const response = await fetch('/.netlify/functions/ask-gemini', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: userQuestion })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Error de la función: ${response.statusText}`);
+                }
+
+                const result = await response.json();
+                
+                if (result.answer) {
+                    answerContainer.innerHTML = `<p>${result.answer.replace(/\n/g, '<br>')}</p>`;
+                } else {
+                    throw new Error("Respuesta inesperada de la función.");
+                }
+
+            } catch (error) {
+                console.error("Error calling Netlify function:", error);
+                answerContainer.innerHTML = `<p class="text-red-400">Lo siento, ha ocurrido un error al procesar tu pregunta. Por favor, inténtalo de nuevo más tarde.</p>`;
+            } finally {
+                askAiBtn.disabled = false;
+                askAiBtn.classList.remove('opacity-50');
+            }
+        };
+
+        askAiBtn.addEventListener('click', askGemini);
+        questionInput.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') {
+                askGemini();
+            }
+        });
+    });
+    </script>
+
+</body>
+</html>
