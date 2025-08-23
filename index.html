@@ -11,14 +11,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        :root {
+            --primary: #6366f1; /* Indigo from DApp */
+            --accent: #f59e0b;  /* Amber from DApp */
+            --dark: #0f0f23;    /* Dark Blue from DApp */
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
         html {
             scroll-behavior: smooth;
         }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #111827;
+            background-color: var(--dark);
             color: #F3F4F6;
             overflow-x: hidden;
+        }
+        .bg-pattern {
+             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at top, rgba(102, 126, 234, 0.1) 0%, transparent 60%); z-index: -1;
         }
         #particles-js {
             position: absolute;
@@ -33,7 +43,7 @@
             z-index: 1;
         }
         .gradient-text {
-            background: linear-gradient(90deg, #FBBF24, #F59E0B);
+            background: linear-gradient(90deg, #FCD34D, #FBBF24, #F59E0B);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -44,7 +54,6 @@
             margin-left: auto;
             margin-right: auto;
             height: 300px;
-            max-height: 400px;
         }
         @media (min-width: 768px) {
             .chart-container {
@@ -60,13 +69,18 @@
             opacity: 0;
             animation-fill-mode: forwards;
         }
-        .card-hover {
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 1.25rem;
+            padding: 2rem;
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
-        .card-hover:hover {
+        .card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            border-color: #FBBF24;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-color: var(--primary);
         }
         .dapp-mockup {
             background-color: #1F2937;
@@ -75,19 +89,57 @@
             padding: 1.5rem;
             text-align: center;
         }
-        /* Estilos para la IA de FAQ */
+        /* Estilos para la IA */
+        #ai-fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        #ai-fab:hover {
+            transform: scale(1.1);
+        }
+        #ai-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        #ai-modal.visible {
+            opacity: 1;
+            visibility: visible;
+        }
         #ai-answer-container {
-            background: rgba(17, 24, 39, 0.5);
-            border: 1px solid #374151;
+            background: var(--dark);
+            border: 1px solid var(--glass-border);
             border-radius: 0.5rem;
             padding: 1.5rem;
             margin-top: 1rem;
-            min-height: 100px;
+            min-height: 150px;
+            max-height: 300px;
+            overflow-y: auto;
             transition: opacity 0.5s ease;
         }
         .spinner {
             border: 4px solid rgba(255, 255, 255, 0.3);
-            border-left-color: #FBBF24;
+            border-left-color: var(--accent);
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -98,8 +150,8 @@
         }
     </style>
 </head>
-<body class="bg-gray-900">
-
+<body class="bg-dark">
+    <div class="bg-pattern"></div>
     <div class="container mx-auto px-4 py-12 md:py-20">
 
         <!-- HERO SECTION -->
@@ -130,17 +182,17 @@
                 <p class="text-gray-400 mt-2 max-w-2xl mx-auto">Una oportunidad finita para ser dueño de una parte del futuro. El suministro de nodos es y siempre será limitado.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700">
+                <div class="card">
                     <p class="text-5xl font-extrabold gradient-text" data-count="2000">0</p>
                     <p class="text-xl font-semibold mt-2">Nodos Totales</p>
                     <p class="text-gray-400 mt-1">Un suministro total inalterable.</p>
                 </div>
-                <div class="bg-amber-500/10 p-8 rounded-2xl border-2 border-amber-500 shadow-lg shadow-amber-500/10">
+                <div class="card border-2 border-amber-500 shadow-lg shadow-amber-500/10">
                     <p class="text-5xl font-extrabold gradient-text" data-count="1000">0</p>
                     <p class="text-xl font-semibold mt-2">Disponibles Ahora</p>
                     <p class="text-gray-400 mt-1">La primera oportunidad para inversores visionarios.</p>
                 </div>
-                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700">
+                <div class="card">
                     <p class="text-5xl font-extrabold gradient-text" data-count="2026">0</p>
                     <p class="text-xl font-semibold mt-2">Siguiente Fase</p>
                     <p class="text-gray-400 mt-1">Los 1,000 nodos restantes se liberarán en el Q2 de 2026.</p>
@@ -155,32 +207,32 @@
                 <p class="text-gray-400 mt-2 max-w-3xl mx-auto">Nuestra estrategia es única: los productos digitales son comercializados por una red global de streamers. Les proveemos herramientas de difusión de vanguardia para que su éxito sea el tuyo, generando ingresos constantes para los tenedores de nodos.</p>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                 <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 flex flex-col text-center items-center card-hover">
+                 <div class="card flex flex-col text-center items-center">
                     <i class="fas fa-robot text-5xl gradient-text mb-4"></i>
                     <h3 class="text-2xl font-bold mb-2">Herramientas de IA y Trading</h3>
                     <p class="text-gray-400 flex-grow">Bots de trading, chat boosts con IA y otras herramientas que generan ingresos por comisiones de uso.</p>
                 </div>
-                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 flex flex-col text-center items-center card-hover">
+                <div class="card flex flex-col text-center items-center">
                     <i class="fas fa-gamepad text-5xl gradient-text mb-4"></i>
                     <h3 class="text-2xl font-bold mb-2">Arenas de Juego P2E</h3>
                     <p class="text-gray-400 flex-grow">Plataforma Play-to-Earn donde los ingresos provienen de torneos y venta de activos in-game.</p>
                 </div>
-                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 flex flex-col text-center items-center card-hover">
+                <div class="card flex flex-col text-center items-center">
                     <i class="fas fa-palette text-5xl gradient-text mb-4"></i>
                     <h3 class="text-2xl font-bold mb-2">Comercialización de NFTs</h3>
                     <p class="text-gray-400 flex-grow">Marketplace para activos digitales exclusivos. Un porcentaje de cada transacción se reparte entre los nodos.</p>
                 </div>
-                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 flex flex-col text-center items-center card-hover">
+                <div class="card flex flex-col text-center items-center">
                     <i class="fas fa-trophy text-5xl gradient-text mb-4"></i>
                     <h3 class="text-2xl font-bold mb-2">Sorteos y Competiciones</h3>
                     <p class="text-gray-400 flex-grow">Eventos online que generan ingresos a través de la venta de tickets y patrocinios, distribuidos a los nodos.</p>
                 </div>
-                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 flex flex-col text-center items-center card-hover">
+                <div class="card flex flex-col text-center items-center">
                     <i class="fas fa-bullhorn text-5xl gradient-text mb-4"></i>
                     <h3 class="text-2xl font-bold mb-2">Potenciamos a Streamers</h3>
                     <p class="text-gray-400 flex-grow">Equipamos a streamers en las plataformas líderes con herramientas y narrativas únicas para comercializar nuestros productos. Su éxito se traduce en ganancias directas para el ecosistema.</p>
                 </div>
-                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 flex flex-col text-center items-center card-hover">
+                <div class="card flex flex-col text-center items-center">
                     <i class="fas fa-book-open text-5xl gradient-text mb-4"></i>
                     <h3 class="text-2xl font-bold mb-2">Infoproductos y Educación</h3>
                     <p class="text-gray-400 flex-grow">Venta de cursos, guías y contenido educativo. Los beneficios se integran al pool de recompensas de los nodos.</p>
@@ -188,7 +240,7 @@
             </div>
              <p class="text-center text-gray-400 text-lg">Y además, comisiones de <span class="font-bold text-gray-300">ingreso</span>, <span class="font-bold text-gray-300">retiro</span> y <span class="font-bold text-gray-300">mucho más</span>... </p>
             <!-- Calculadora Interactiva -->
-            <div class="bg-gray-900/70 backdrop-blur-sm p-8 rounded-2xl border border-amber-500 mt-12 max-w-4xl mx-auto">
+            <div class="card border-2 border-indigo-800 mt-12 max-w-4xl mx-auto">
                 <h4 class="text-2xl font-bold text-center mb-6">Calcula tus Ganancias Potenciales</h4>
                 <div class="space-y-6">
                     <div>
@@ -216,17 +268,17 @@
                 <p class="text-gray-400 mt-2 max-w-2xl mx-auto">Hemos diseñado un sistema de doble valorización que protege y potencia tu capital de forma única en el mercado.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700">
+                <div class="card">
                     <h3 class="text-2xl font-bold mb-4">Fase 1: Valorización Automática</h3>
                     <p class="text-gray-400 mb-6">El precio base de cada nodo aumenta con cada 50 ventas. Los primeros en invertir obtienen la mayor ventaja.</p>
                     <div class="chart-container">
                         <canvas id="valorizationChart"></canvas>
                     </div>
                 </div>
-                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700">
+                <div class="card">
                     <h3 class="text-2xl font-bold mb-4">Fase 2: Valorización Sostenida</h3>
                     <p class="text-gray-400 mb-6">En el Marketplace P2P, ningún nodo puede venderse por debajo de su precio de compra + 10%. Esto crea un "piso" de valor que sube constantemente.</p>
-                    <div class="bg-gray-900 p-6 rounded-lg text-center">
+                    <div class="bg-dark p-6 rounded-lg text-center">
                         <p class="text-gray-400">Precio Mínimo de Venta</p>
                         <p class="text-2xl font-bold mt-2"><span class="gradient-text">Precio de Compra + 10%</span></p>
                         <p class="text-sm text-gray-500 mt-4">Esta regla protege a todos los tenedores de nodos y asegura un mercado saludable.</p>
@@ -245,7 +297,7 @@
                 <!-- Step 1 -->
                 <div class="flex flex-col">
                     <div class="flex items-center mb-4">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-full step-number font-bold text-2xl mr-4">1</div>
+                        <div style="background-color: var(--primary);" class="flex items-center justify-center h-12 w-12 rounded-full font-bold text-2xl mr-4">1</div>
                         <h3 class="text-2xl font-bold">Conecta tu Wallet</h3>
                     </div>
                     <div class="dapp-mockup flex-grow">
@@ -260,7 +312,7 @@
                 <!-- Step 2 -->
                 <div class="flex flex-col">
                     <div class="flex items-center mb-4">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-full step-number font-bold text-2xl mr-4">2</div>
+                        <div style="background-color: var(--primary);" class="flex items-center justify-center h-12 w-12 rounded-full font-bold text-2xl mr-4">2</div>
                         <h3 class="text-2xl font-bold">Compra tu Nodo</h3>
                     </div>
                     <div class="dapp-mockup flex-grow">
@@ -275,7 +327,7 @@
                 <!-- Step 3 -->
                 <div class="flex flex-col">
                     <div class="flex items-center mb-4">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-full step-number font-bold text-2xl mr-4">3</div>
+                        <div style="background-color: var(--primary);" class="flex items-center justify-center h-12 w-12 rounded-full font-bold text-2xl mr-4">3</div>
                         <h3 class="text-2xl font-bold">Recibe Ganancias</h3>
                     </div>
                     <div class="dapp-mockup flex-grow">
@@ -302,17 +354,17 @@
                 <p class="text-gray-400 mt-2 max-w-2xl mx-auto">Tres pilares que hacen de esta una inversión inteligente y segura.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 card-hover">
+                <div class="card">
                     <i class="fas fa-shield-alt text-4xl gradient-text mb-4"></i>
                     <h3 class="text-2xl font-bold mb-2">Valorización Garantizada</h3>
                     <p class="text-gray-400">Con un precio que solo puede subir y un piso de venta del +10%, tu activo está diseñado para apreciarse.</p>
                 </div>
-                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 card-hover">
+                <div class="card">
                      <i class="fas fa-coins text-4xl gradient-text mb-4"></i>
                     <h3 class="text-2xl font-bold mb-2">Ingresos Pasivos Reales</h3>
                     <p class="text-gray-400">Recibes ganancias directas de productos funcionales, no de la entrada de nuevos inversores.</p>
                 </div>
-                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 card-hover">
+                <div class="card">
                      <i class="fas fa-file-contract text-4xl gradient-text mb-4"></i>
                     <h3 class="text-2xl font-bold mb-2">Propiedad Descentralizada</h3>
                     <p class="text-gray-400">Tu nodo es un NFT en tu wallet. Tienes control total y puedes venderlo cuando quieras en el marketplace.</p>
@@ -331,38 +383,38 @@
                 <div class="absolute left-4 md:left-12 -ml-0.5 w-1 h-full bg-gray-700"></div>
                 <!-- Hito 1 -->
                 <div class="relative mb-8 pl-12 md:pl-24">
-                    <div class="absolute left-4 md:left-12 -ml-4 w-8 h-8 rounded-full bg-amber-500 border-4 border-gray-900 flex items-center justify-center">
-                        <i class="fas fa-check text-gray-900"></i>
+                    <div style="background-color: var(--primary);" class="absolute left-4 md:left-12 -ml-4 w-8 h-8 rounded-full border-4 border-dark flex items-center justify-center">
+                        <i class="fas fa-check text-white"></i>
                     </div>
                     <div>
-                        <p class="font-bold text-amber-400">Q3 2025</p>
+                        <p class="font-bold text-indigo-400">Q3 2024</p>
                         <h4 class="text-xl font-bold mt-1">Lanzamiento de Nodos</h4>
                         <p class="text-gray-400">Apertura de la venta inicial de los primeros 1,000 nodos.</p>
                     </div>
                 </div>
                 <!-- Hito 2 -->
                 <div class="relative mb-8 pl-12 md:pl-24">
-                     <div class="absolute left-4 md:left-12 -ml-4 w-8 h-8 rounded-full bg-amber-500 border-4 border-gray-900 flex items-center justify-center">
-                        <i class="fas fa-check text-gray-900"></i>
+                     <div style="background-color: var(--primary);" class="absolute left-4 md:left-12 -ml-4 w-8 h-8 rounded-full border-4 border-dark flex items-center justify-center">
+                        <i class="fas fa-check text-white"></i>
                     </div>
                     <div>
-                        <p class="font-bold text-amber-400">Q4 2025</p>
+                        <p class="font-bold text-indigo-400">Q4 2024</p>
                         <h4 class="text-xl font-bold mt-1">Integración de Juegos</h4>
                         <p class="text-gray-400">Lanzamiento de las primeras Arenas de juego en el ecosistema.</p>
                     </div>
                 </div>
                  <!-- Hito 3 -->
                 <div class="relative mb-8 pl-12 md:pl-24">
-                     <div class="absolute left-4 md:left-12 -ml-4 w-8 h-8 rounded-full bg-gray-700 border-4 border-gray-900"></div>
+                     <div class="absolute left-4 md:left-12 -ml-4 w-8 h-8 rounded-full bg-gray-700 border-4 border-dark"></div>
                     <div>
-                        <p class="font-bold text-gray-500">Q1 2026</p>
+                        <p class="font-bold text-gray-500">Q1 2025</p>
                         <h4 class="text-xl font-bold mt-1">Marketplace P2P</h4>
                         <p class="text-gray-400">Activación del mercado secundario para la compra-venta de nodos.</p>
                     </div>
                 </div>
                  <!-- Hito 4 -->
                 <div class="relative pl-12 md:pl-24">
-                     <div class="absolute left-4 md:left-12 -ml-4 w-8 h-8 rounded-full bg-gray-700 border-4 border-gray-900"></div>
+                     <div class="absolute left-4 md:left-12 -ml-4 w-8 h-8 rounded-full bg-gray-700 border-4 border-dark"></div>
                     <div>
                         <p class="font-bold text-gray-500">Q2 2026</p>
                         <h4 class="text-xl font-bold mt-1">Liberación Fase 2</h4>
@@ -372,38 +424,19 @@
             </div>
         </section>
 
-        <!-- GEMINI FAQ SECTION -->
-        <section class="mb-24">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold">❓ Pregúntale a nuestra IA</h2>
-                <p class="text-gray-400 mt-2 max-w-2xl mx-auto">¿Tienes dudas? Nuestra IA, entrenada con toda la información del proyecto, te responde al instante.</p>
-            </div>
-            <div class="max-w-3xl mx-auto bg-gray-800/50 border border-gray-700 rounded-lg p-8">
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <input type="text" id="ai-question-input" class="w-full bg-gray-700 text-white rounded-md p-3 border border-gray-600 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" placeholder="Ej: ¿Cómo se reparten las ganancias?">
-                    <button id="ask-ai-btn" class="bg-amber-500 text-gray-900 font-bold py-3 px-6 rounded-lg hover:bg-amber-400 transition-colors flex items-center justify-center gap-2">
-                        Preguntar a la IA ✨
-                    </button>
-                </div>
-                <div id="ai-answer-container" class="text-gray-300 mt-6">
-                    <p>La respuesta aparecerá aquí...</p>
-                </div>
-            </div>
-        </section>
-        
         <!-- TRUST & CLARITY SECTION -->
         <section class="text-center max-w-4xl mx-auto">
             <h2 class="text-3xl md:text-4xl font-bold">🛡️ Confianza y Claridad en Cada Paso</h2>
             <p class="text-gray-400 mt-2 mb-8">Construimos sobre una base de transparencia y facilidad de uso.</p>
             <div class="flex flex-col md:flex-row justify-center gap-8">
-                <div class="flex items-center text-left gap-4 bg-gray-800/50 p-6 rounded-lg border border-gray-700 flex-1">
+                <div class="flex items-center text-left gap-4 card flex-1">
                     <i class="fas fa-search-dollar text-4xl text-amber-500"></i>
                     <div>
                         <h4 class="font-bold text-lg">Transparencia y Trazabilidad</h4>
                         <p class="text-gray-400 text-sm">Cada transacción es pública y verificable en la blockchain, garantizando una total claridad sobre los fondos.</p>
                     </div>
                 </div>
-                <div class="flex items-center text-left gap-4 bg-gray-800/50 p-6 rounded-lg border border-gray-700 flex-1">
+                <div class="flex items-center text-left gap-4 card flex-1">
                     <i class="fas fa-desktop text-4xl text-amber-500"></i>
                      <div>
                         <h4 class="font-bold text-lg">DApp Amigable e Intuitiva</h4>
@@ -413,6 +446,30 @@
             </div>
         </section>
 
+    </div>
+
+    <!-- AI Floating Action Button -->
+    <div id="ai-fab">
+        <i class="fas fa-brain text-white text-2xl"></i>
+    </div>
+
+    <!-- AI Modal -->
+    <div id="ai-modal">
+        <div class="card w-11/12 max-w-2xl mx-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">Pregúntale a nuestro Asesor IA</h2>
+                <button id="close-ai-modal" class="text-gray-400 hover:text-white">&times;</button>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <input type="text" id="ai-question-input" class="w-full bg-gray-700 text-white rounded-md p-3 border border-gray-600 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" placeholder="Ej: ¿Cómo se reparten las ganancias?">
+                <button id="ask-ai-btn" class="bg-amber-500 text-gray-900 font-bold py-3 px-6 rounded-lg hover:bg-amber-400 transition-colors flex items-center justify-center gap-2">
+                    Preguntar ✨
+                </button>
+            </div>
+            <div id="ai-answer-container">
+                <p>¡Hola! Soy el asesor de IA de FinalX. Estoy aquí para resolver todas tus dudas sobre esta increíble oportunidad de inversión. ¿En qué puedo ayudarte?</p>
+            </div>
+        </div>
     </div>
 
     <footer class="border-t border-gray-800 mt-20">
@@ -426,8 +483,8 @@
     document.addEventListener('DOMContentLoaded', function () {
         // --- ANIMACIÓN DE PARTÍCULAS HERO ---
         particlesJS('particles-js', {
-            "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#fbbf24" }, "shape": { "type": "circle" }, "opacity": { "value": 0.5, "random": false }, "size": { "value": 3, "random": true }, "line_linked": { "enable": true, "distance": 150, "color": "#fbbf24", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out" } },
-            "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } }, "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "push": { "particles_nb": 4 } } },
+            "particles": { "number": { "value": 60, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#6366f1" }, "shape": { "type": "circle" }, "opacity": { "value": 0.4, "random": true }, "size": { "value": 3, "random": true }, "line_linked": { "enable": true, "distance": 150, "color": "#6366f1", "opacity": 0.2, "width": 1 }, "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out" } },
+            "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": false } }, "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 0.5 } } } },
             "retina_detect": true
         });
 
@@ -450,7 +507,7 @@
                     counters.forEach(counter => {
                         const target = +counter.getAttribute('data-count');
                         let count = 0;
-                        const speed = 200; // Duración de la animación
+                        const speed = 200;
                         const increment = target / speed;
                         const updateCount = () => {
                             if (count < target) {
@@ -502,10 +559,21 @@
         if (nodeSlider) nodeSlider.addEventListener('input', updateCalculator);
         if (profitSlider) profitSlider.addEventListener('input', updateCalculator);
 
-        // --- GEMINI API INTEGRATION ---
+        // --- GEMINI API & MODAL LOGIC ---
+        const aiFab = document.getElementById('ai-fab');
+        const aiModal = document.getElementById('ai-modal');
+        const closeAiModalBtn = document.getElementById('close-ai-modal');
         const askAiBtn = document.getElementById('ask-ai-btn');
         const questionInput = document.getElementById('ai-question-input');
         const answerContainer = document.getElementById('ai-answer-container');
+
+        aiFab.addEventListener('click', () => aiModal.classList.add('visible'));
+        closeAiModalBtn.addEventListener('click', () => aiModal.classList.remove('visible'));
+        aiModal.addEventListener('click', (e) => {
+            if (e.target === aiModal) {
+                aiModal.classList.remove('visible');
+            }
+        });
 
         const askGemini = async () => {
             const userQuestion = questionInput.value;
@@ -519,7 +587,6 @@
             askAiBtn.classList.add('opacity-50');
 
             try {
-                // The frontend now calls our own serverless function
                 const response = await fetch('/.netlify/functions/ask-gemini', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -558,4 +625,3 @@
 
 </body>
 </html>
-
